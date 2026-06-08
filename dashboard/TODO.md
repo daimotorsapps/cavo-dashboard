@@ -9,3 +9,6 @@
 - [ ] Reemplazar scraper (Playwright) por fetch al API
 - [ ] Serverless function en Vercel para refresh automático
 - [ ] Refrescar tokens vencidos automáticamente
+
+### Dashboard
+- [ ] Mostrar últimos 3 posts de cada cuenta en detail view
