@@ -3,6 +3,19 @@
 // ═══════════════════════════════════════
 
 interface RecentPost { url: string; }
+interface ReelShot { shot: number; desc: string; }
+interface ReelIdea {
+  title: string;
+  theme: string;
+  shots: ReelShot[];
+  copy: string;
+  music: string;
+  talent: string;
+}
+interface AccountReelIdeas {
+  id: string;
+  ideas: ReelIdea[];
+}
 interface Account {
   id: string; name: string; handle: string; bio: string;
   avatar: string; avatarBg: string;
@@ -109,6 +122,81 @@ const accounts: Account[] = [
     since: '2023', garantia: 'Repuestos originales', financiamiento: 'No aplica',
     grupo: '—',
     models: ['Kia Picanto', 'Kia Cerato', 'Kia Optima', 'Kia Pregio', 'Kia Sportage']
+  }
+];
+
+const reelIdeas: AccountReelIdeas[] = [
+  {
+    id: 'daimotorsmcbo',
+    ideas: [
+      {
+        title: 'Las Llaves', theme: 'Día del Padre',
+        shots: [
+          { shot: 1, desc: 'Asesor entrega llaves a papá junto a Tucson azul en showroom' },
+          { shot: 2, desc: 'Close-up manos recibiendo llaves' },
+          { shot: 3, desc: 'Papá abre puerta, se sienta al volante, sonrisa' },
+          { shot: 4, desc: 'Texto: "Este es tu regalo, papá."' }
+        ],
+        copy: '1 línea emocional', music: 'Acústica', talent: 'Papá + asesor'
+      },
+      {
+        title: 'La Selección de Tu Papá', theme: 'Mundial',
+        shots: [
+          { shot: 1, desc: 'Asesor parado frente a 3 modelos (Accent, Tucson, Elantra)' },
+          { shot: 2, desc: 'Cada modelo con sticker de país en el vidrio' },
+          { shot: 3, desc: 'Texto: "¿Cuál te llevas para ver el partido?"' }
+        ],
+        copy: '1 línea promocional', music: 'Electrónica con beat de estadio', talent: 'Asesor'
+      }
+    ]
+  },
+  {
+    id: 'cherymaracaibo',
+    ideas: [
+      {
+        title: 'El Hijo Elige', theme: 'Día del Padre',
+        shots: [
+          { shot: 1, desc: 'Papá e hijo entran al showroom, ven Tiggo roja' },
+          { shot: 2, desc: 'Niño señala el carro, papá ríe' },
+          { shot: 3, desc: 'Asesor abre puerta, papá examina interior' },
+          { shot: 4, desc: 'Texto: "Cuando tu hijo elige el próximo carro."' }
+        ],
+        copy: 'Tono divertido/familiar', music: 'Reggaeton suave, loop batería', talent: 'Papá + hijo + asesor'
+      },
+      {
+        title: 'La Selección de Papá', theme: 'Mundial',
+        shots: [
+          { shot: 1, desc: 'Papá frente a Himla con bandera venezolana' },
+          { shot: 2, desc: 'Plano abierto showroom' },
+          { shot: 3, desc: 'Texto: "La selección de papá."' }
+        ],
+        copy: '1 línea', music: 'Guaracha / festiva', talent: 'Papá'
+      }
+    ]
+  },
+  {
+    id: 'yantaimotors',
+    ideas: [
+      {
+        title: 'El Que Sabe', theme: 'Día del Padre',
+        shots: [
+          { shot: 1, desc: 'Papá trajeado camina showroom, iluminación dirigida' },
+          { shot: 2, desc: 'Se detiene frente a Jetour X70 negro' },
+          { shot: 3, desc: 'Asesor abre puerta, papá asiente' },
+          { shot: 4, desc: 'Texto: "Para el papá que sabe lo que quiere."' }
+        ],
+        copy: 'Sofisticado, aspiracional', music: 'Lo-fi / jazz minimal', talent: 'Papá + asesor'
+      },
+      {
+        title: 'La Hinchada Cabe', theme: 'Mundial',
+        shots: [
+          { shot: 1, desc: 'Papá + amigos en showroom frente a Jetour' },
+          { shot: 2, desc: 'Se toman selfie grupal' },
+          { shot: 3, desc: 'Texto: "La hinchada cabe en un Jetour."' }
+        ],
+        copy: 'Grupal, divertido', music: 'Deep house ambiente', talent: 'Papá + 2 amigos'
+      }
+    ]
   }
 ];
 
@@ -408,6 +496,57 @@ function renderDetail(id: string) {
   ], ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun']);
 }
 
+// ─── Reels view ───
+
+function renderReels() {
+  const c = h('div', { style: 'display:flex;flex-direction:column;gap:24px' });
+
+  for (const entry of reelIdeas) {
+    const a = accounts.find(x => x.id === entry.id);
+    if (!a) continue;
+    const card = h('div', { class: 'card' });
+
+    let html = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <h2 style="margin:0;text-transform:none;font-size:20px;color:${a.avatarBg}">${a.name}</h2>
+        <span style="font-size:12px;color:var(--text-dim)">${entry.ideas.length} ideas</span>
+      </div>`;
+
+    for (const idea of entry.ideas) {
+      const themeBadge = idea.theme === 'Día del Padre'
+        ? '<span style="background:rgba(251,191,36,0.1);color:#fbbf24;padding:2px 10px;border-radius:20px;font-size:11px;border:1px solid rgba(251,191,36,0.2)">👨 Día del Padre</span>'
+        : '<span style="background:rgba(34,211,238,0.1);color:#22d3ee;padding:2px 10px;border-radius:20px;font-size:11px;border:1px solid rgba(34,211,238,0.2)">⚽ Mundial</span>';
+
+      html += `
+        <div style="background:var(--bg-surface2);border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid var(--border)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <strong style="font-size:15px">${idea.title}</strong>
+            ${themeBadge}
+          </div>
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13px;color:var(--text-muted);margin-bottom:10px">`;
+
+      for (const s of idea.shots) {
+        html += `<span style="color:var(--text-dim);font-weight:600">${s.shot}.</span><span>${s.desc}</span>`;
+      }
+
+      html += `</div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--text-dim);padding-top:10px;border-top:1px solid var(--border)">
+            <span>🎵 ${idea.music}</span>
+            <span>👤 ${idea.talent}</span>
+            <span>📝 ${idea.copy}</span>
+          </div>
+        </div>`;
+    }
+
+    card.innerHTML = html;
+    c.append(card);
+  }
+
+  const content = document.getElementById('content')!;
+  content.innerHTML = '';
+  content.append(c);
+}
+
 // ─── Refresh (inactivo — el scraper corre via GitHub Actions) ───
 
 let currentView = 'consolidado';
@@ -451,9 +590,12 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     currentView = (btn as HTMLElement).dataset.view!;
-    const title = currentView === 'consolidado' ? 'Consolidado' : accounts.find(a => a.id === currentView)?.name || currentView;
+    const title = currentView === 'consolidado' ? 'Consolidado'
+      : currentView === 'reels' ? 'Reels'
+      : accounts.find(a => a.id === currentView)?.name || currentView;
     document.getElementById('view-title')!.textContent = title;
     if (currentView === 'consolidado') renderConsolidado();
+    else if (currentView === 'reels') renderReels();
     else renderDetail(currentView);
   });
 });
