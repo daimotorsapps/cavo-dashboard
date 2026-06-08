@@ -10,23 +10,12 @@
   },
   "devDependencies": {
     "@types/node": "^25.9.2",
+    "playwright": "^1.60.0",
     "typescript": "~6.0.2",
     "vite": "^8.0.12"
   },
-  "main": "index.js",
   "dependencies": {
-    "detect-libc": "^2.1.2",
-    "fdir": "^6.5.0",
-    "lightningcss": "^1.32.0",
-    "lightningcss-win32-x64-msvc": "^1.32.0",
-    "nanoid": "^3.3.12",
-    "picocolors": "^1.1.1",
-    "picomatch": "^4.0.4",
-    "playwright": "^1.60.0",
-    "postcss": "^8.5.15",
-    "rolldown": "^1.0.3",
-    "source-map-js": "^1.2.1",
-    "tinyglobby": "^0.2.17"
+    "lightningcss": "^1.32.0"
   },
   "keywords": [],
   "author": "",
