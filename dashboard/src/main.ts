@@ -16,6 +16,10 @@ interface AccountReelIdeas {
   id: string;
   ideas: ReelIdea[];
 }
+interface Competitor {
+  name: string; ig: string; followers: string; notes: string;
+  threat: 'alto' | 'medio' | 'bajo';
+}
 interface Account {
   id: string; name: string; handle: string; bio: string;
   avatar: string; avatarBg: string;
@@ -25,6 +29,7 @@ interface Account {
   tone: string; models: string[]; location: string; since: string;
   garantia: string; financiamiento: string; grupo: string;
   recentPosts?: RecentPost[];
+  competitors?: Competitor[];
 }
 
 const accounts: Account[] = [
@@ -45,7 +50,13 @@ const accounts: Account[] = [
     tone: 'Emocional, aspiracional, profesional', location: 'Av. 4 Bella Vista, Maracaibo',
     since: '2004', garantia: '5 años / 150,000 km', financiamiento: 'CTZ Financing',
     grupo: 'Dai Motors, S.A.',
-    models: ['Hyundai Accent', 'Hyundai Tucson 4x2/4x4', 'Hyundai Elantra', 'Hyundai Santa Fe']
+    models: ['Hyundai Accent', 'Hyundai Tucson 4x2/4x4', 'Hyundai Elantra', 'Hyundai Santa Fe'],
+    competitors: [
+      { name: 'Toyoccidente (Toyota)', ig: '@toyoccidente_ca', followers: '~9K', notes: 'Concesionario 2.0, eventos ShowRoom mensuales. Financiamiento 50%+cuotas.', threat: 'alto' },
+      { name: 'JAC Maracaibo', ig: '@jacmotorsmcbo', followers: '~18K', notes: '#1 ventas Vzla, 4 sedes Zulia, financiamiento agresivo (CrediJAC).', threat: 'alto' },
+      { name: 'Changan Maracaibo', ig: '@changanmaracaibo', followers: '~4K', notes: '#3 ventas nacional, 15 concesionarios, precios desde $15K.', threat: 'medio' },
+      { name: 'Auto Mall', ig: '@automallvzla', followers: '~3K', notes: 'Multimarca (Hyundai, Mitsubishi, Chery).', threat: 'bajo' },
+    ]
   },
   {
     id: 'cherymaracaibo', name: 'Chery Maracaibo', handle: '@cherymaracaibo',
@@ -64,7 +75,13 @@ const accounts: Account[] = [
     tone: 'Moderno, fresco, juvenil', location: 'Av. 4 Bella Vista, Maracaibo',
     since: '2026', garantia: '5 años / 150,000 km', financiamiento: 'CTZ Financing',
     grupo: 'Dai Motors, S.A.',
-    models: ['Chery Tiggo Pro', 'Chery Tiggo 8', 'Chery Himla Pick-Up']
+    models: ['Chery Tiggo Pro', 'Chery Tiggo 8', 'Chery Himla Pick-Up'],
+    competitors: [
+      { name: 'Changan Maracaibo', ig: '@changanmaracaibo', followers: '~4K', notes: '#3 ventas nacional. SUVs CS35/CS55/CS95 + Hunter pick-up.', threat: 'alto' },
+      { name: 'Yantai Motors (Jetour)', ig: '@yantaimotors', followers: '4.8K', notes: 'Marca china premium. Jetour X70, Kaiyi. Mismo target.', threat: 'alto' },
+      { name: 'Chery Venezuela', ig: '@cheryvenezuela_', followers: '~118K', notes: 'Cuenta oficial. Autofest 2026. Red nacional Iksan/García Tuñón.', threat: 'medio' },
+      { name: 'JAC Maracaibo', ig: '@jacmotorsmcbo', followers: '~18K', notes: '#1 ventas. Financiamiento agresivo. 4 sedes.', threat: 'medio' },
+    ]
   },
   {
     id: 'yantaimotors', name: 'Yantai Motors', handle: '@yantaimotors',
@@ -83,7 +100,13 @@ const accounts: Account[] = [
     tone: 'Aspiracional, sofisticado, lujo accesible', location: 'Av. 4 Bella Vista, Maracaibo',
     since: '2023', garantia: '100,000 km / 5 años', financiamiento: 'BNC (12-24 meses)',
     grupo: 'Yantai Motors, S.A.',
-    models: ['Jetour X70', 'Jetour X70 Plus', 'Jetour X3', 'Kaiyi', 'Karry Pick-Up 1TN']
+    models: ['Jetour X70', 'Jetour X70 Plus', 'Jetour X3', 'Kaiyi', 'Karry Pick-Up 1TN'],
+    competitors: [
+      { name: 'Chery Maracaibo', ig: '@cherymaracaibo', followers: '420', notes: 'Misma nacionalidad china. SUVs + Himla pick-up. Grupo Dai Motors.', threat: 'alto' },
+      { name: 'Changan Maracaibo', ig: '@changanmaracaibo', followers: '~4K', notes: '15 concesionarios nacionales. CS35/CS55. Marca china más establecida.', threat: 'alto' },
+      { name: 'Jetour Venezuela', ig: '@jetourvnzla', followers: '~6K', notes: 'Cuenta oficial marca. 8+ concesionarios. Marketing nacional.', threat: 'medio' },
+      { name: 'Dai Motors (Hyundai)', ig: '@daimotorsmcbo', followers: '7.4K', notes: 'Marca coreana consolidada. Target medio-alto.', threat: 'medio' },
+    ]
   },
   {
     id: 'kyotomotorsmcbo', name: 'Kyoto Motors MCBO', handle: '@kyotomotorsmcbo',
@@ -102,7 +125,13 @@ const accounts: Account[] = [
     tone: 'Profesional, cercano, con humor', location: 'Av. Bella Vista, Maracaibo',
     since: '1999', garantia: '5 anos / 150,000 km', financiamiento: 'Varios',
     grupo: 'Kyoto Motors, S.A.',
-    models: ['Mitsubishi L200', 'Mitsubishi Touring', 'Mitsubishi Montero', 'Mitsubishi ASX']
+    models: ['Mitsubishi L200', 'Mitsubishi Touring', 'Mitsubishi Montero', 'Mitsubishi ASX'],
+    competitors: [
+      { name: 'Toyoccidente (Toyota)', ig: '@toyoccidente_ca', followers: '~9K', notes: 'Hilux compite directo con L200. ShowRoom Experience mensual. 2.0.', threat: 'alto' },
+      { name: 'Auto Total / FOTON', ig: '@fotonmaracaibo', followers: '~2K', notes: 'Mejor Concesionario FOTON 2025. Pick-ups comerciales.', threat: 'medio' },
+      { name: 'JAC Maracaibo', ig: '@jacmotorsmcbo', followers: '~18K', notes: 'Pick-ups T8/T9. Financiamiento agresivo.', threat: 'medio' },
+      { name: 'Automar', ig: '@automar_ve', followers: '~5K', notes: 'Mitsubishi Valencia y Caracas. Vehículos y repuestos.', threat: 'bajo' },
+    ]
   },
   {
     id: 'repuestoskiamcbo', name: 'Repuestos Kia MCBO', handle: '@repuestoskiamcbo',
@@ -121,7 +150,13 @@ const accounts: Account[] = [
     tone: 'Educativo, servicial, directo', location: 'Av. 4 Bella Vista, Maracaibo',
     since: '2023', garantia: 'Repuestos originales', financiamiento: 'No aplica',
     grupo: '—',
-    models: ['Kia Picanto', 'Kia Cerato', 'Kia Optima', 'Kia Pregio', 'Kia Sportage']
+    models: ['Kia Picanto', 'Kia Cerato', 'Kia Optima', 'Kia Pregio', 'Kia Sportage'],
+    competitors: [
+      { name: 'Kia Maracaibo (Chars)', ig: '@kiamaracaibo', followers: '~4K', notes: 'Concesionario oficial 2.0 abierto 2025. Vende vehículos + repuestos.', threat: 'alto' },
+      { name: 'Kia Centromarca', ig: '@kiacentromarca', followers: '~5K', notes: 'Concesionario Caracas Las Mercedes. Repuestos + servicio.', threat: 'medio' },
+      { name: 'Auto Repuestos Venezuela Import', ig: '—', followers: '—', notes: 'Multimarca. Kia, Hyundai, Ford, Chevrolet. Mayor/detal.', threat: 'medio' },
+      { name: 'repuestoskiahyundai.com', ig: '—', followers: '—', notes: 'E-commerce Colombia. Repuestos originales/genéricos. Envíos.', threat: 'bajo' },
+    ]
   }
 ];
 
@@ -453,6 +488,106 @@ function renderDetail(id: string) {
   extra.append(oppCard);
   c.append(extra);
 
+  // Pricing chart
+  const pricingCard = h('div', { class: 'card', style: 'grid-column:1/-1' });
+  pricingCard.innerHTML = `<h2>Precios referenciales · USD</h2>`;
+  const priceCanvas = h('canvas') as HTMLCanvasElement;
+  priceCanvas.width = 300; priceCanvas.height = 180;
+  pricingCard.append(priceCanvas);
+  c.append(pricingCard);
+
+  const pricingData: Record<string, { label: string; price: number }[]> = {
+    daimotorsmcbo: [
+      { label: 'Hyundai Accent', price: 26400 },
+      { label: 'Hyundai Elantra', price: 42100 },
+      { label: 'Changan Alsvin', price: 17739 },
+      { label: 'JAC Elite', price: 22160 },
+    ],
+    cherymaracaibo: [
+      { label: 'Chery Tiggo 4 Pro', price: 24200 },
+      { label: 'Chery Himla', price: 37642 },
+      { label: 'Changan CS35 Plus', price: 29900 },
+      { label: 'Changan Hunter', price: 38203 },
+    ],
+    yantaimotors: [
+      { label: 'Kaiyi X3', price: 24500 },
+      { label: 'Jetour X70', price: 30000 },
+      { label: 'Kaiyi X7', price: 48900 },
+      { label: 'Changan CS55 Plus', price: 39850 },
+    ],
+    kyotomotorsmcbo: [
+      { label: 'Mitsubishi L200', price: 31000 },
+      { label: 'Mitsubishi Montero', price: 45000 },
+      { label: 'Toyota Hilux SRV', price: 58550 },
+      { label: 'Changan Hunter 4x4', price: 42219 },
+    ],
+    repuestoskiamcbo: [
+      { label: 'Kia Picanto (ref)', price: 15000 },
+      { label: 'Kia Sportage (ref)', price: 35000 },
+      { label: 'Hyundai Accent', price: 26400 },
+      { label: 'JAC Arena', price: 15465 },
+    ]
+  };
+  const priceColors: Record<string, string> = {
+    daimotorsmcbo: '#06b6d4', cherymaracaibo: '#f59e0b', yantaimotors: '#ef4444',
+    kyotomotorsmcbo: '#8b5cf6', repuestoskiamcbo: '#10b981'
+  };
+  requestAnimationFrame(() => {
+    const ctx = priceCanvas.getContext('2d')!;
+    const dpr = window.devicePixelRatio || 1;
+    const rect = priceCanvas.getBoundingClientRect();
+    priceCanvas.width = rect.width * dpr;
+    priceCanvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+    const w = rect.width, h = rect.height;
+    const pad = { t: 20, r: 16, b: 36, l: 56 };
+    const cw = w - pad.l - pad.r, ch = h - pad.t - pad.b;
+    ctx.clearRect(0, 0, w, h);
+    const data = pricingData[id] || [];
+    if (!data.length) return;
+    const max = Math.max(...data.map(d => d.price), 1) * 1.15;
+    const barW = cw / data.length * 0.6;
+    const gap = cw / data.length * 0.4;
+    data.forEach((d, i) => {
+      const x = pad.l + (cw / data.length) * i + gap / 2;
+      const bh = (d.price / max) * ch;
+      const y = pad.t + ch - bh;
+      ctx.fillStyle = priceColors[id] || '#06b6d4';
+      ctx.beginPath();
+      ctx.roundRect(x, y, barW, bh, [4, 4, 0, 0]);
+      ctx.fill();
+      ctx.fillStyle = '#4a4f63';
+      ctx.font = '9px DM Sans, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('$' + d.price.toLocaleString(), x + barW / 2, y - 4);
+      ctx.fillStyle = '#6b7280';
+      ctx.font = '8px DM Sans, sans-serif';
+      ctx.fillText(d.label, x + barW / 2, pad.t + ch + 14);
+    });
+  });
+
+  // Competencia
+  if (a.competitors && a.competitors.length > 0) {
+    const compCard = h('div', { class: 'card', style: 'grid-column:1/-1' });
+    let compHtml = `<h2>Competencia directa</h2><div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">`;
+    for (const comp of a.competitors) {
+      const threatColor = comp.threat === 'alto' ? '#ef4444' : comp.threat === 'medio' ? '#f59e0b' : '#6b7280';
+      const threatLabel = comp.threat === 'alto' ? 'Alta' : comp.threat === 'medio' ? 'Media' : 'Baja';
+      compHtml += `
+        <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg-surface2);border-radius:8px;border-left:3px solid ${threatColor}">
+          <div style="flex:1">
+            <strong style="font-size:14px">${comp.name}</strong>
+            <div style="font-size:12px;color:var(--text-dim);margin-top:2px">${comp.ig} · ${comp.followers} segs</div>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);flex:2">${comp.notes}</div>
+          <span style="font-size:11px;font-weight:600;color:${threatColor};background:${threatColor}15;padding:3px 10px;border-radius:20px;text-transform:uppercase">${threatLabel}</span>
+        </div>`;
+    }
+    compHtml += '</div>';
+    compCard.innerHTML = compHtml;
+    c.append(compCard);
+  }
+
   // Chart
   const chartCard = h('div', { class: 'card', style: 'grid-column:1/-1' });
   chartCard.innerHTML = `<h2>Evolución Engagement</h2>`;
@@ -561,6 +696,20 @@ const todoData: TodoItem[] = [
       { text: 'Configurar autorización para cada cuenta', done: false },
       { text: 'Serverless function en Vercel para refresh automático', done: false },
       { text: 'Refrescar tokens vencidos automáticamente', done: false },
+    ]
+  },
+  {
+    section: 'Competencia',
+    items: [
+      { text: 'Research competencia Zulia + Nacional (5 cuentas)', done: true },
+      { text: 'Competencia.md en cada carpeta de cuenta', done: true },
+      { text: 'Dashboard: vista competidores + pricing chart', done: true },
+      { text: 'Estrategia competitiva general', done: true },
+      { text: 'Reels tácticos anti-competencia', done: true },
+      { text: 'Content calendar 2 semanas por cuenta', done: true },
+      { text: 'Análisis contenido competidores', done: true },
+      { text: 'Brief diseñadora reels tácticos', done: true },
+      { text: 'SEO local / Google My Business sugerencias', done: true },
     ]
   },
   {
