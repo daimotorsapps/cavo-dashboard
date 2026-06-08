@@ -547,6 +547,75 @@ function renderReels() {
   content.append(c);
 }
 
+// ─── TODO view ───
+
+interface TodoItem { section: string; items: { text: string; done: boolean }[]; }
+
+const todoData: TodoItem[] = [
+  {
+    section: 'Dashboard',
+    items: [
+      { text: 'Mostrar últimos 3 posts de cada cuenta en detail view', done: false },
+      { text: 'Migrar a Instagram Basic Display API (reemplazar scraper)', done: false },
+      { text: 'Crear app en Facebook Developers', done: false },
+      { text: 'Configurar autorización para cada cuenta', done: false },
+      { text: 'Serverless function en Vercel para refresh automático', done: false },
+      { text: 'Refrescar tokens vencidos automáticamente', done: false },
+    ]
+  },
+  {
+    section: 'Reels (Junio)',
+    items: [
+      { text: 'Revisar y ajustar guiones en ideas-reels.md', done: false },
+      { text: 'Pasar brief a diseñadora para producción', done: false },
+      { text: 'Grabar 1 reel por cuenta (Dai, Chery, Yantai)', done: false },
+    ]
+  },
+  {
+    section: 'Trello',
+    items: [
+      { text: 'Configurar MCP de Trello cuando tenga credenciales (API key + token)', done: false },
+    ]
+  }
+];
+
+function renderTodos() {
+  const c = h('div', { style: 'display:flex;flex-direction:column;gap:20px' });
+
+  for (const sec of todoData) {
+    const done = sec.items.filter(i => i.done).length;
+    const total = sec.items.length;
+    const pct = total > 0 ? Math.round(done / total * 100) : 0;
+
+    const card = h('div', { class: 'card' });
+    let html = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <h2 style="margin:0;text-transform:none;font-size:18px">${sec.section}</h2>
+        <span style="font-size:12px;color:var(--text-dim)">${done}/${total} · ${pct}%</span>
+      </div>
+      <div style="height:4px;background:var(--bg-surface2);border-radius:4px;margin-bottom:14px;overflow:hidden">
+        <div style="height:100%;width:${pct}%;background:var(--green);border-radius:4px;transition:width 0.5s"></div>
+      </div>`;
+
+    for (const item of sec.items) {
+      const icon = item.done ? '✅' : '○';
+      const color = item.done ? 'var(--text-dim)' : 'var(--text)';
+      const decor = item.done ? 'line-through' : 'none';
+      html += `<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:${color};text-decoration:${decor}">
+        <span style="font-size:14px;flex-shrink:0">${icon}</span>
+        <span>${item.text}</span>
+      </div>`;
+    }
+
+    card.innerHTML = html;
+    c.append(card);
+  }
+
+  const content = document.getElementById('content')!;
+  content.innerHTML = '';
+  content.append(c);
+}
+
 // ─── Refresh (inactivo — el scraper corre via GitHub Actions) ───
 
 let currentView = 'consolidado';
@@ -592,10 +661,12 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
     currentView = (btn as HTMLElement).dataset.view!;
     const title = currentView === 'consolidado' ? 'Consolidado'
       : currentView === 'reels' ? 'Reels'
+      : currentView === 'todos' ? 'TODO'
       : accounts.find(a => a.id === currentView)?.name || currentView;
     document.getElementById('view-title')!.textContent = title;
     if (currentView === 'consolidado') renderConsolidado();
     else if (currentView === 'reels') renderReels();
+    else if (currentView === 'todos') renderTodos();
     else renderDetail(currentView);
   });
 });
