@@ -140,16 +140,140 @@ function wrapText(ctx, text, maxWidth) {
   return lines;
 }
 
+// ── Countdown template ──
+async function templateCountdown(ctx, brand, imgBuffers, params) {
+  const { title, subtitle, event, days } = params;
+  const W = SIZE, H = SIZE;
+
+  // Warm amber gradient base
+  const bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, '#1A0F00');
+  bg.addColorStop(0.3, '#3D2B1A');
+  bg.addColorStop(0.6, brand.dark);
+  bg.addColorStop(1, '#000000');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // Golden accent glow
+  const glow = ctx.createRadialGradient(W * 0.5, 200, 0, W * 0.5, 200, 700);
+  glow.addColorStop(0, 'rgba(200, 169, 81, 0.12)');
+  glow.addColorStop(1, 'transparent');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, W, H);
+
+  // Top accent line
+  ctx.fillStyle = 'rgba(200, 169, 81, 0.3)';
+  ctx.fillRect(0, 0, W, 3);
+
+  // Brand + event header
+  ctx.fillStyle = 'rgba(255,255,255,0.06)';
+  ctx.fillRect(0, 0, W, 90);
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = '32px Impact';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(brand.logo, 50, 45);
+  ctx.fillStyle = 'rgba(255,255,255,0.4)';
+  ctx.font = '18px Segoe UI';
+  ctx.textAlign = 'right';
+  ctx.fillText(brand.ig, W - 50, 45);
+
+  // Event label
+  ctx.fillStyle = brand.accent;
+  ctx.font = '22px Segoe UI';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  ctx.fillText('🫶 ' + (event || 'DÍA DEL PADRE'), W / 2, 130);
+
+  // Big countdown number
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = '220px Impact';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  const num = days || '14';
+  ctx.shadowColor = 'rgba(200,169,81,0.3)';
+  ctx.shadowBlur = 40;
+  ctx.fillText(num, W / 2, 310);
+  ctx.shadowBlur = 0;
+
+  // "DÍAS" label
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.font = '36px Segoe UI';
+  ctx.fillText('DÍAS', W / 2, 430);
+
+  // Title
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = '48px Impact';
+  ctx.fillText(title || 'SORPRENDE A PAPÁ', W / 2, 530);
+
+  // Subtitle
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.font = '22px Segoe UI';
+  ctx.fillText(subtitle || 'Con la nueva Hyundai Tucson 2026', W / 2, 590);
+
+  // Bottom images row
+  const imgY = 660, imgH = 280, imgW = 280;
+  const gap = 30;
+  const totalW = (imgW + gap) * 2 - gap;
+  let startX = (W - totalW) / 2;
+
+  if (imgBuffers && imgBuffers.length > 0) {
+    for (let i = 0; i < Math.min(imgBuffers.length, 2); i++) {
+      try {
+        const img = await loadImage(Buffer.from(imgBuffers[i]));
+        const x = startX + i * (imgW + gap);
+
+        // Image shadow
+        ctx.shadowColor = 'rgba(0,0,0,0.5)';
+        ctx.shadowBlur = 20;
+        ctx.shadowOffsetY = 5;
+
+        // Rounded clip
+        ctx.save();
+        roundedRect(ctx, x, imgY, imgW, imgH, 16);
+        ctx.clip();
+        // Cover fill
+        const aspect = img.width / img.height;
+        const coverW = aspect > 1 ? imgW : imgH * aspect;
+        const coverH = aspect > 1 ? imgW / aspect : imgH;
+        const ox = (imgW - coverW) / 2;
+        const oy = (imgH - coverH) / 2;
+        ctx.drawImage(img, x + ox, imgY + oy, coverW, coverH);
+        ctx.restore();
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetY = 0;
+
+        // Border
+        ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+        ctx.lineWidth = 1.5;
+        roundedRect(ctx, x, imgY, imgW, imgH, 16);
+        ctx.stroke();
+      } catch (e) {
+        // Skip bad image
+      }
+    }
+  }
+
+  // CTA bar at bottom
+  ctx.fillStyle = brand.primary;
+  ctx.fillRect(190, H - 80, 700, 50);
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = '24px Impact';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('AGENDA TU TEST DRIVE · '+ brand.ig, W / 2, H - 55);
+}
+
 // ── Templates ──
 
-async function templatePromo(ctx, brand, imgBuffer, params) {
+async function templatePromo(ctx, brand, imgBuffers, params) {
   const { title, subtitle, cta, model } = params;
   const W = SIZE, H = SIZE;
 
   // Background
   drawBrandGradient(ctx, brand);
-  if (imgBuffer) {
-    const img = await loadImage(Buffer.from(imgBuffer));
+  if (imgBuffers && imgBuffers[0]) {
+    const img = await loadImage(Buffer.from(imgBuffers[0]));
     ctx.globalAlpha = 0.35;
     ctx.drawImage(img, 0, -200, W, W + 400);
     ctx.globalAlpha = 1;
@@ -209,13 +333,13 @@ async function templatePromo(ctx, brand, imgBuffer, params) {
   ctx.fillRect(340, H - 60, 400, 4);
 }
 
-async function templateDelivery(ctx, brand, imgBuffer, params) {
+async function templateDelivery(ctx, brand, imgBuffers, params) {
   const { title, model } = params;
   const W = SIZE, H = SIZE;
 
   // Full-bleed image
-  if (imgBuffer) {
-    const img = await loadImage(Buffer.from(imgBuffer));
+  if (imgBuffers && imgBuffers[0]) {
+    const img = await loadImage(Buffer.from(imgBuffers[0]));
     ctx.drawImage(img, -100, -100, W + 200, H + 200);
   } else {
     drawBrandGradient(ctx, brand);
@@ -266,7 +390,7 @@ async function templateDelivery(ctx, brand, imgBuffer, params) {
   ctx.fillText(`📍 Av. Bella Vista · ${brand.logo}`, W / 2, H - 120);
 }
 
-async function templateLaunch(ctx, brand, imgBuffer, params) {
+async function templateLaunch(ctx, brand, imgBuffers, params) {
   const { title, subtitle, specs, model } = params;
   const W = SIZE, H = SIZE;
 
@@ -286,8 +410,8 @@ async function templateLaunch(ctx, brand, imgBuffer, params) {
   ctx.fillRect(0, 0, W, H);
 
   // Car image bottom 60%
-  if (imgBuffer) {
-    const img = await loadImage(Buffer.from(imgBuffer));
+  if (imgBuffers && imgBuffers[0]) {
+    const img = await loadImage(Buffer.from(imgBuffers[0]));
     ctx.globalAlpha = 0.8;
     ctx.drawImage(img, -50, 320, W + 100, 700);
     ctx.globalAlpha = 1;
@@ -336,7 +460,7 @@ async function templateLaunch(ctx, brand, imgBuffer, params) {
   ctx.fillText(subtitle || brand.ctas[1] || 'AGENDA TU VISITA', W - 60, H - 60);
 }
 
-async function templateEducational(ctx, brand, imgBuffer, params) {
+async function templateEducational(ctx, brand, imgBuffers, params) {
   const { title, subtitle, tips } = params;
   const W = SIZE, H = SIZE;
 
@@ -358,8 +482,8 @@ async function templateEducational(ctx, brand, imgBuffer, params) {
   ctx.globalAlpha = 1;
 
   // Side image
-  if (imgBuffer) {
-    const img = await loadImage(Buffer.from(imgBuffer));
+  if (imgBuffers && imgBuffers[0]) {
+    const img = await loadImage(Buffer.from(imgBuffers[0]));
     ctx.globalAlpha = 0.2;
     ctx.drawImage(img, 600, 0, 600, H);
     ctx.globalAlpha = 1;
@@ -410,7 +534,7 @@ async function templateEducational(ctx, brand, imgBuffer, params) {
 
 // ── Main ──
 
-const TEMPLATES = { promo: templatePromo, delivery: templateDelivery, launch: templateLaunch, educational: templateEducational };
+const TEMPLATES = { promo: templatePromo, delivery: templateDelivery, launch: templateLaunch, educational: templateEducational, countdown: templateCountdown };
 
 async function generatePost(account, template = 'promo', params = {}) {
   const brand = BRANDS[account];
@@ -421,9 +545,22 @@ async function generatePost(account, template = 'promo', params = {}) {
 
   console.log(`\n🎨 Generating ${template} post for ${account}...`);
 
-  let imgBuffer = null;
-  if (!params.noImage) {
-    imgBuffer = await fetchUnsplashImage(params.query || brand.unsplashQuery);
+  let imgBuffers = [];
+  // Load local image paths if provided
+  for (const key of ['image', 'image2']) {
+    if (params[key]) {
+      try {
+        const { readFileSync } = await import('fs');
+        imgBuffers.push(readFileSync(params[key]));
+      } catch (e) {
+        console.warn(`  ⚠ Could not load ${params[key]}: ${e.message}`);
+      }
+    }
+  }
+  // Fallback: download from Unsplash if no images provided
+  if (imgBuffers.length === 0 && !params.noImage) {
+    const buf = await fetchUnsplashImage(params.query || brand.unsplashQuery);
+    if (buf) imgBuffers.push(buf);
   }
 
   const canvas = createCanvas(SIZE, SIZE);
@@ -431,7 +568,7 @@ async function generatePost(account, template = 'promo', params = {}) {
 
   const fn = TEMPLATES[template];
   if (!fn) throw new Error(`Unknown template: ${template}`);
-  await fn(ctx, brand, imgBuffer, params);
+  await fn(ctx, brand, imgBuffers, params);
 
   const slug = `${account}-${template}-${Date.now()}`;
   const outPath = join(outDir, `${slug}.png`);
