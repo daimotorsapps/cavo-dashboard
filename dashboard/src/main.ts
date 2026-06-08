@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════
-// CAVO DASHBOARD — Engine
+// GABO DASHBOARD — Engine
 // ═══════════════════════════════════════
 
 interface RecentPost { url: string; }
