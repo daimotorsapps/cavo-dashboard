@@ -1,7 +1,7 @@
 # @cherymaracaibo — Análisis de Instagram
 
 ## Métricas
-- **Seguidores:** 3,272
+- **Seguidores:** 3,303
 - **Siguiendo:** 44
 - **Posts:** 67
 - **Bio:** Pendiente de actualizar (cuenta nueva)

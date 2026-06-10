@@ -37,7 +37,7 @@ const accounts: Account[] = [
     id: 'daimotorsmcbo', name: 'Dai Motors MCBO', handle: '@daimotorsmcbo',
     bio: 'Concesionario Autorizado Hyundai · Maracaibo',
     avatar: 'D', avatarBg: '#06b6d4',
-    followers: 7408, following: 158, posts: 1264,
+    followers: 7769, following: 165, posts: 1281,
     engagement: 2.1, growth30d: 1.8, avgLikes: 28, avgComments: 3,
     topHashtags: ['#hyundaivenezuela', '#hyundaiaccent', '#hyundaimaracaibo', '#DaiMotorsmcbo', '#CTZFinancing'],
     opportunities: [
@@ -62,7 +62,7 @@ const accounts: Account[] = [
     id: 'cherymaracaibo', name: 'Chery Maracaibo', handle: '@cherymaracaibo',
     bio: 'Concesionario Autorizado Chery · Maracaibo · Dai Motors',
     avatar: 'C', avatarBg: '#f59e0b',
-    followers: 420, following: 85, posts: 38,
+    followers: 3303, following: 44, posts: 67,
     engagement: 4.8, growth30d: 12.5, avgLikes: 18, avgComments: 2,
     topHashtags: ['#CheryMaracaibo', '#GranInauguracion', '#CheryVenezuela', '#InnovacionAutomotriz', '#Himla'],
     opportunities: [
@@ -87,7 +87,7 @@ const accounts: Account[] = [
     id: 'yantaimotors', name: 'Yantai Motors', handle: '@yantaimotors',
     bio: 'Jetour · Kaiyi · Karry · Alta Gama · Maracaibo',
     avatar: 'Y', avatarBg: '#ef4444',
-    followers: 4770, following: 100, posts: 531,
+    followers: 4972, following: 101, posts: 540,
     engagement: 1.5, growth30d: 0.9, avgLikes: 12, avgComments: 1,
     topHashtags: ['#Jetour', '#Kaiyi', '#Karry', '#YantaiMotors', '#Maracaibo'],
     opportunities: [
@@ -112,7 +112,7 @@ const accounts: Account[] = [
     id: 'kyotomotorsmcbo', name: 'Kyoto Motors MCBO', handle: '@kyotomotorsmcbo',
     bio: 'Concesionario Autorizado Mitsubishi · Maracaibo',
     avatar: 'K', avatarBg: '#8b5cf6',
-    followers: 5494, following: 1689, posts: 890,
+    followers: 5555, following: 1687, posts: 909,
     engagement: 1.2, growth30d: 0.3, avgLikes: 8, avgComments: 1,
     topHashtags: ['#Mitsubishi', '#KyotoMotors', '#Maracaibo', '#Zulia', '#L200'],
     opportunities: [
@@ -137,7 +137,7 @@ const accounts: Account[] = [
     id: 'repuestoskiamcbo', name: 'Repuestos Kia MCBO', handle: '@repuestoskiamcbo',
     bio: 'Centro de repuestos originales Kia · Maracaibo',
     avatar: 'R', avatarBg: '#10b981',
-    followers: 520, following: 9, posts: 270,
+    followers: 639, following: 11, posts: 318,
     engagement: 2.8, growth30d: 1.1, avgLikes: 5, avgComments: 1,
     topHashtags: ['#repuestosoriginales', '#repuestoskiamcbo', '#repuestoskia', '#kia', '#maracaibo'],
     opportunities: [
