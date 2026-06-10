@@ -1,11 +1,12 @@
 # @yantaimotors — Análisis de Instagram
 
 ## Métricas
-- **Seguidores:** ~4,770
-- **Siguiendo:** ~100
-- **Posts:** ~531
+- **Seguidores:** 4,962
+- **Siguiendo:** 101
+- **Posts:** 540
 - **Bio:** "Todo lo que quieres y más… Concesionario Autorizado ¡Solicita información! 👇🏻"
 - **Link en bio:** Linktree
+- **Medición:** 10/06/2026
 
 ## Tipo de contenido
 | Tipo | Frecuencia | Ejemplos |

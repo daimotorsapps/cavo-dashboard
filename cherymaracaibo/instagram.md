@@ -1,9 +1,12 @@
 # @cherymaracaibo — Análisis de Instagram
 
 ## Métricas
-- **Seguidores:** Bajos (cuenta nueva, inaugurada mayo 2026)
-- **Posts:** Sporádicos desde enero 2026
+- **Seguidores:** 3,272
+- **Siguiendo:** 44
+- **Posts:** 67
 - **Bio:** Pendiente de actualizar (cuenta nueva)
+- **Link en bio:** —
+- **Medición:** 10/06/2026
 
 ## Tipo de contenido
 | Tipo | Frecuencia | Ejemplos |

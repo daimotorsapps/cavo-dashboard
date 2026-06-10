@@ -1,10 +1,11 @@
 # @repuestoskiamcbo — Análisis de Instagram
 
 ## Métricas
-- **Seguidores:** ~520
-- **Siguiendo:** ~9
-- **Posts:** ~270
+- **Seguidores:** 638
+- **Siguiendo:** 11
+- **Posts:** 318
 - **Bio:** "Somos el Centro de repuestos Kia en Maracaibo"
+- **Medición:** 10/06/2026
 
 ## Tipo de contenido
 | Tipo | Frecuencia | Ejemplos |

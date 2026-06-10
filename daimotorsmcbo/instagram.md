@@ -1,11 +1,12 @@
 # @daimotorsmcbo — Análisis de Instagram
 
 ## Métricas
-- **Seguidores:** ~7,400
-- **Siguiendo:** ~158
-- **Posts:** ~1,264
+- **Seguidores:** 7,755
+- **Siguiendo:** 165
+- **Posts:** 1,281
 - **Bio:** "Piensa Hyundai, piensa en Dai Concesionario Autorizado ¡Solicita información!👇🏻"
 - **Link en bio:** Linktree / WhatsApp
+- **Medición:** 10/06/2026
 
 ## Tipo de contenido
 | Tipo | Frecuencia | Ejemplos |

@@ -1,10 +1,11 @@
 # @kyotomotorsmcbo — Análisis de Instagram
 
 ## Métricas
-- **Seguidores:** ~5,494
-- **Siguiendo:** ~1,689
-- **Posts:** ~890
+- **Seguidores:** 5,555
+- **Siguiendo:** 1,687
+- **Posts:** 909
 - **Bio:** "Kyoto Motors, S.A +25 años de trayectoria"
+- **Medición:** 10/06/2026
 
 ## Tipo de contenido
 | Tipo | Frecuencia | Ejemplos |
